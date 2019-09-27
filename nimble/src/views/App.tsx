@@ -2,7 +2,7 @@ import * as React from 'react';
 import Form from './components/Form';
 import '../style/styles.css';
 // import Assets from './components/Assets';
-import Comparison from './components/d3components/Comparison';
+// import Comparison from './components/d3components/Comparison';
 
 interface Vscode {
     postMessage(message: any): void;
@@ -83,7 +83,7 @@ export default class App extends React.Component<{},State> {
               <br/><br/>
                 <Form runFunc={runWebpackGetStats} entryFunc = {this.entryHandler} entry={this.state.entry} />
 
-                <Comparison preOpt={this.state.preOptStats} postOpt={this.state.postOptStats}/>
+                {/* <Comparison preOpt={this.state.preOptStats} postOpt={this.state.postOptStats}/> */}
                 {/* <Assets recievedMessage={this.state.recievedMessage} preOptStats={this.state.preOptStats} optFunc = {optimize} entry={this.state.entry} /> */}
             </div>
         );
