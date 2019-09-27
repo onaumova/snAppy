@@ -20,7 +20,7 @@ interface Asset {
 
 interface State {
     recievedMessage: boolean;
-    messageField?: Asset[];
+    firstBundleStats?: Asset[];
     entry: string;
 }
 
@@ -29,7 +29,7 @@ export default class App extends React.Component<{},State> {
         super(props);
         this.state= {
             recievedMessage: false,
-            messageField: undefined,
+            firstBundleStats: undefined,
             entry: '',
             // algoMessage: {
             //     command: 'optimize',
@@ -70,7 +70,7 @@ export default class App extends React.Component<{},State> {
             console.log('message recieved', assetObj);
             this.setState ({
                 recievedMessage: true,
-                messageField: assetObj
+                firstBundleStats: assetObj
             }); 
         });
         // if (this.state.recievedMessage) {
@@ -83,7 +83,7 @@ export default class App extends React.Component<{},State> {
                 <br/><br/>
                  {/* will import in the form component here */}
                  <Form runFunc={runWebpackGetStats} entryFunc = {this.entryHandler} entry={this.state.entry} />
-                 <Assets recievedMessage={this.state.recievedMessage} messageField={this.state.messageField} optFunc = {optimize} entry={this.state.entry} />
+                 <Assets recievedMessage={this.state.recievedMessage} messageField={this.state.firstBundleStats} optFunc = {optimize} entry={this.state.entry} />
                  {/* <button onClick={algoTester(this.state.algoMessage)}>Test Big Algo</button> */}
             </div>
         );
