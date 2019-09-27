@@ -66,7 +66,7 @@ export function activate(context: ExtensionContext) {
           /*after traverse and injections are done, rebundle and stats is executed */
           workspace.fs.readFile(URI.file(`${__dirname}/compilation-stats.json`))
             .then(res => {
-              return  panel.webview.postMessage({command: 'postOpt', field: res.toString()});
+              return panel.webview.postMessage({command: 'postOpt', field: res.toString()});
               });
       }
     });

@@ -9,7 +9,7 @@ interface Asset {
 
 interface Props {
     recievedMessage:boolean;
-    firstBundleStats?: Asset[];
+    preOptStats?: Asset[];
     entry: string;
     optFunc:any;
 }
@@ -22,12 +22,12 @@ export default class Assets extends React.Component<Props,{}> {
 
 
     render() {
-        const {recievedMessage, firstBundleStats} = this.props;
+        const {recievedMessage, preOptStats} = this.props;
 
-        if(recievedMessage && firstBundleStats){
+        if(recievedMessage && preOptStats){
             return(<>
             <h4>Bundled Asset(s):  Size</h4>
-            {firstBundleStats.map((asset:Asset)=><div >{`${asset.name}: ${asset.size} KiB`}</div>)}
+            {preOptStats.map((asset:Asset)=><div >{`${asset.name}: ${asset.size} KiB`}</div>)}
             <button onClick = {()=> this.props.optFunc({command: 'optimize', entry: this.props.entry})}>Optimize</button>
             
             </>);

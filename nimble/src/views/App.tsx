@@ -18,8 +18,9 @@ interface Asset {
 
 interface State {
     recievedMessage: boolean;
-    firstBundleStats?: Asset[];
-    optBundleStats?: Asset[];
+    preOptStats?: Asset[];
+    postOptStats?: Asset[];
+    bundledOpt?: boolean;
     entry: string;
 }
 
@@ -28,8 +29,9 @@ export default class App extends React.Component<{},State> {
         super(props);
         this.state= {
             recievedMessage: false,
-            firstBundleStats: undefined,
-            optBundleStats: undefined,
+            preOptStats: undefined,
+            postOptStats: undefined,
+            bundledOpt: false,
             entry: '',
 
         };
@@ -57,13 +59,20 @@ export default class App extends React.Component<{},State> {
             const message: any = event.data;
             switch (message.command) {
                 case 'preOpt': 
-                    let assetObj: Asset[] = JSON.parse(message.field).assets;
-                    console.log('message recieved', assetObj);
+                    let preOptStats: Asset[] = JSON.parse(message.field).assets;
+                    console.log('message recieved', preOptStats);
                     this.setState ({
                         recievedMessage: true,
-                        firstBundleStats: assetObj
+                        preOptStats: preOptStats
                     }); 
                     break;
+                case 'postOpt':
+                    let postOptStats: Asset[] = JSON.parse(message.field).assets;
+                    console.log('message recieved', postOptStats);
+                    this.setState ({
+                        bundledOpt: true,
+                        postOptStats: postOptStats
+                    }); 
                 }
             });
        
@@ -72,7 +81,7 @@ export default class App extends React.Component<{},State> {
                 <h1 id='logoText'>snAppy</h1>
                 <br/><br/>
                  <Form runFunc={runWebpackGetStats} entryFunc = {this.entryHandler} entry={this.state.entry} />
-                 <Assets recievedMessage={this.state.recievedMessage} firstBundleStats={this.state.firstBundleStats} optFunc = {optimize} entry={this.state.entry} />
+                 <Assets recievedMessage={this.state.recievedMessage} preOptStats={this.state.preOptStats} optFunc = {optimize} entry={this.state.entry} />
             </div>
         );
     }
