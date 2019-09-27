@@ -21,6 +21,7 @@ interface Asset {
 interface State {
     recievedMessage: boolean;
     firstBundleStats?: Asset[];
+    optBundleStats?: Asset[];
     entry: string;
 }
 
@@ -30,6 +31,7 @@ export default class App extends React.Component<{},State> {
         this.state= {
             recievedMessage: false,
             firstBundleStats: undefined,
+            optBundleStats: undefined,
             entry: '',
             // algoMessage: {
             //     command: 'optimize',
@@ -64,15 +66,19 @@ export default class App extends React.Component<{},State> {
         //have an array here that renders the status messages
         window.addEventListener('message', event => {
             // console.log(event.data)
-            const message: any = (event.data);
-            console.log(JSON.parse(message.field));
-            let assetObj: Asset[] = JSON.parse(message.field).assets;
-            console.log('message recieved', assetObj);
-            this.setState ({
-                recievedMessage: true,
-                firstBundleStats: assetObj
-            }); 
-        });
+            const message: any = event.data;
+            switch (message.command) {
+                case 'preOpt': 
+                    // console.log(JSON.parse(message.field));
+                    let assetObj: Asset[] = JSON.parse(message.field).assets;
+                    console.log('message recieved', assetObj);
+                    this.setState ({
+                        recievedMessage: true,
+                        firstBundleStats: assetObj
+                    }); 
+                    break;
+                }
+            });
         // if (this.state.recievedMessage) {
 
         // }

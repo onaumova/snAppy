@@ -50,7 +50,7 @@ export function activate(context: ExtensionContext) {
 
                 workspace.fs.readFile(URI.file(`${__dirname}/compilation-stats.json`))
                   .then(res => {
-                  return  panel.webview.postMessage({command: 'stats', field: res.toString()});
+                  return  panel.webview.postMessage({command: 'preOpt', field: res.toString()});
                   });
               });
             });
