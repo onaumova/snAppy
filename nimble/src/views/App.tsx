@@ -83,7 +83,7 @@ export default class App extends React.Component<{},State> {
                 <br/><br/>
                  {/* will import in the form component here */}
                  <Form runFunc={runWebpackGetStats} entryFunc = {this.entryHandler} entry={this.state.entry} />
-                 <Assets recievedMessage={this.state.recievedMessage} messageField={this.state.firstBundleStats} optFunc = {optimize} entry={this.state.entry} />
+                 <Assets recievedMessage={this.state.recievedMessage} firstBundleStats={this.state.firstBundleStats} optFunc = {optimize} entry={this.state.entry} />
                  {/* <button onClick={algoTester(this.state.algoMessage)}>Test Big Algo</button> */}
             </div>
         );
