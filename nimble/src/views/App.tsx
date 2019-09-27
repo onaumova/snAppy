@@ -3,13 +3,11 @@ import Form from './components/Form';
 import '../style/styles.css';
 import Assets from './components/Assets';
 
-// interface set for class; set type to void because function does not return a value;
 interface Vscode {
     postMessage(message: any): void;
 }
 
 declare const vscode: Vscode;
-
 
 interface Asset {
     name: string;
@@ -33,10 +31,7 @@ export default class App extends React.Component<{},State> {
             firstBundleStats: undefined,
             optBundleStats: undefined,
             entry: '',
-            // algoMessage: {
-            //     command: 'optimize',
-            //     entry: '/Users/MacBong/Desktop/production/CJOR/nimble/out/src/views/components/test.js',
-            // }
+
         };
         this.entryHandler = this.entryHandler.bind(this);
     }
@@ -47,7 +42,6 @@ export default class App extends React.Component<{},State> {
     }
     render() {
         
-        //This is the function that onlick of the submit button, will send the state to the extension.ts file
         const runWebpackGetStats = (message : any) => {
             console.log ("bundling working");
             return vscode.postMessage(message);
@@ -57,19 +51,12 @@ export default class App extends React.Component<{},State> {
             console.log("optimizing");
             return vscode.postMessage(message);
         };
-        // const algoTester = (message : any) => ()=> {
-        //     return vscode.postMessage(message);
 
-        // };
-        
-        //backend will send progress update
-        //have an array here that renders the status messages
         window.addEventListener('message', event => {
             // console.log(event.data)
             const message: any = event.data;
             switch (message.command) {
                 case 'preOpt': 
-                    // console.log(JSON.parse(message.field));
                     let assetObj: Asset[] = JSON.parse(message.field).assets;
                     console.log('message recieved', assetObj);
                     this.setState ({
@@ -79,53 +66,15 @@ export default class App extends React.Component<{},State> {
                     break;
                 }
             });
-        // if (this.state.recievedMessage) {
-
-        // }
-        // console.log(this.state)
+       
         return (
             <div id='mainApp'> 
                 <h1 id='logoText'>snAppy</h1>
                 <br/><br/>
-                 {/* will import in the form component here */}
                  <Form runFunc={runWebpackGetStats} entryFunc = {this.entryHandler} entry={this.state.entry} />
                  <Assets recievedMessage={this.state.recievedMessage} firstBundleStats={this.state.firstBundleStats} optFunc = {optimize} entry={this.state.entry} />
-                 {/* <button onClick={algoTester(this.state.algoMessage)}>Test Big Algo</button> */}
             </div>
         );
     }
     
 }
-
-
-// Outline for components
-
-//app:
-    //contain the Form and the submit functionality
-
-//Module Selection Components:
-    //a toggle button with some text
-    //will have a true or false flag
-
-/*object = {
-    Command: 'config',
-    Field: {
-        entry: 'string',
-        module: {
-            jsx: true,
-            css: true,
-            sass: true,
-        }
-    }
-
-}*/
-
-
-//need to create a path to our visualization using react Router
-//import reactRouter
-//in the render of the App class - need to have a component called <Router/>
-//need to add another element to the state - bunde: true or false
-//if true react Route to the component with visualizations
-//so react router need to wrapped inside an componenetDidMount inside of the app class snd sdd event listener which listens to the message from the backed when bundling is finished
-//and this will setState bundle: true
-//in the render () add a conidtional (this.state.bundled) : comp =<visualization/> ? componet
