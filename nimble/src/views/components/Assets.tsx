@@ -10,6 +10,8 @@ interface Asset {
 interface Props {
     recievedMessage:boolean;
     preOptStats?: Asset[];
+    postOptStats?: Asset[];
+    bundledOpt:boolean;
     entry: string;
     optFunc:any;
 }
