@@ -58,9 +58,16 @@ export function activate(context: ExtensionContext) {
         case 'optimize':
           // console.log('optimizing: parsing thru files and performing opt fx()');
           let resolvedEntry = path.resolve(`${(workspace.workspaceFolders? workspace.workspaceFolders[0].uri.path : '/') + message.entry}`);
-          ///src/client/index.js
+          //src/client/index.js
             traverseAndDynamicallyImport(resolvedEntry, resolvedEntry);
+
             break;
+        case 'stats':
+          /*after traverse and injections are done, rebundle and stats is executed */
+          workspace.fs.readFile(URI.file(`${__dirname}/compilation-stats.json`))
+            .then(res => {
+              return  panel.webview.postMessage({command: 'postOpt', field: res.toString()});
+              });
       }
     });
   });
