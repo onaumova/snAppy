@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Visualization from '../components/d3components/Visualization';
 
 interface Asset {
     name: string;
@@ -30,6 +31,7 @@ export default class Assets extends React.Component<Props,{}> {
             return(<>
             <h4>Bundled Asset(s):  Size</h4>
             {preOptStats.map((asset:Asset)=><div >{`${asset.name}: ${asset.size} KiB`}</div>)}
+
             <button onClick = {()=> this.props.optFunc({command: 'optimize', entry: this.props.entry})}>Optimize</button>
             
             </>);
