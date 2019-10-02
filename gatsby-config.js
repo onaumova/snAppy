@@ -1,6 +1,20 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
+    title: `snAppy`,
+    menuLinks:[
+      {
+          name:'Home',
+          link:'/'
+      },
+      {
+          name:'Introduction',
+          link:'/introduction'
+      },
+      {
+        name:'Documentation',
+        link:'/documentation'
+    }
+    ],
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
   },
@@ -27,7 +41,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // this (optional) plugin enables Progressive Web App  Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
